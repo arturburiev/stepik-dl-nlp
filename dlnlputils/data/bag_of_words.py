@@ -17,10 +17,32 @@ def calc_counter_matrix(tokenized_texts, word2id):
     return result
 
 
-def vectorize_texts(counter_matrix, word2freq, mode="tfidf", scale=True):
-    assert mode in {"tfidf", "idf", "tf", "bin"}
+def build_class_counter_matrix(doc_counter_matrix, labels):
+    result = np.matrix(np.empty((0, doc_counter_matrix.shape[-1]), "float32"))
+    unique_labels = np.unique(labels)
 
-    result = counter_matrix.copy()
+    for unique_label in unique_labels:
+        class_samples = doc_counter_matrix[np.where(labels == unique_label)]
+        result = np.vstack((result, class_samples.sum(0)))
+
+    return scipy.sparse.dok_matrix(result)
+
+
+def calc_pmi(doc_counter_matrix, labels):
+    result = None
+    class_counter_matrix = build_class_counter_matrix(doc_counter_matrix, labels)
+    all_sum = class_counter_matrix.sum()
+    probs_w_c = class_counter_matrix / all_sum
+    probs_c = class_counter_matrix.sum(1) / all_sum
+    probs_w = class_counter_matrix.sum(0) / all_sum
+    result = scipy.sparse.csr_matrix(np.log((probs_w_c / (probs_c * probs_w)))).max(0)
+    return result
+
+
+def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=True):
+    assert mode in {"tfidf", "idf", "tf", "bin", "pmi", "tfpmi"}
+
+    result = doc_counter_matrix.copy()
 
     # получаем бинарные вектора "встречается или нет"
     if mode == "bin":
@@ -46,7 +68,12 @@ def vectorize_texts(counter_matrix, word2freq, mode="tfidf", scale=True):
         result = result.multiply(1 / word2freq)  # разделить каждый столбец на вес слова
 
     elif mode == "pmi":
+        result = (result > 0).astype("float32").multiply(pmi_vec)
+
+    elif mode == "tfpmi":
         result = result.tocsr()
+        result = result.multiply(1 / result.sum(1))
+        result = result.multiply(pmi_vec)
 
     if scale:
         result = result.tocsc()
