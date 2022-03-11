@@ -4,9 +4,7 @@ import torch
 from torch.utils.data import Dataset
 
 
-def vectorize_texts(tokenized_texts, word2id, word2freq, mode="tfidf", scale=True):
-    assert mode in {"tfidf", "idf", "tf", "bin"}
-
+def calc_counter_matrix(tokenized_texts, word2id):
     # считаем количество употреблений каждого слова в каждом документе
     result = scipy.sparse.dok_matrix(
         (len(tokenized_texts), len(word2id)), dtype="float32"
@@ -15,6 +13,14 @@ def vectorize_texts(tokenized_texts, word2id, word2freq, mode="tfidf", scale=Tru
         for token in text:
             if token in word2id:
                 result[text_i, word2id[token]] += 1
+
+    return result
+
+
+def vectorize_texts(counter_matrix, word2freq, mode="tfidf", scale=True):
+    assert mode in {"tfidf", "idf", "tf", "bin"}
+
+    result = counter_matrix.copy()
 
     # получаем бинарные вектора "встречается или нет"
     if mode == "bin":
@@ -38,6 +44,9 @@ def vectorize_texts(tokenized_texts, word2id, word2freq, mode="tfidf", scale=Tru
             1 / result.sum(1)
         )  # разделить каждую строку на её длину
         result = result.multiply(1 / word2freq)  # разделить каждый столбец на вес слова
+
+    elif mode == "pmi":
+        result = result.tocsr()
 
     if scale:
         result = result.tocsc()
