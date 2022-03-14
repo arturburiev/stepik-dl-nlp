@@ -5,3 +5,4 @@ from .nnets import *
 from .pos import *
 from .lemmatize import *
 from .poetry import *
+from .custom_preprocessing import *
