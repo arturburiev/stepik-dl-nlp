@@ -21,7 +21,7 @@ def copy_data_to_device(data, device):
         return data.to(device)
     elif isinstance(data, (list, tuple)):
         return [copy_data_to_device(elem, device) for elem in data]
-    raise ValueError('Недопустимый тип данных {}'.format(type(data)))
+    raise ValueError("Недопустимый тип данных {}".format(type(data)))
 
 
 def print_grad_stats(model):
@@ -29,26 +29,35 @@ def print_grad_stats(model):
     std = 0
     norm = 1e-5
     for param in model.parameters():
-        grad = getattr(param, 'grad', None)
+        grad = getattr(param, "grad", None)
         if grad is not None:
             mean += grad.data.abs().mean()
             std += grad.data.std()
             norm += 1
     mean /= norm
     std /= norm
-    print(f'Mean grad {mean}, std {std}, n {norm}')
+    print(f"Mean grad {mean}, std {std}, n {norm}")
 
 
-def train_eval_loop(model, train_dataset, val_dataset, criterion,
-                    lr=1e-4, epoch_n=10, batch_size=32,
-                    device=None, early_stopping_patience=10, l2_reg_alpha=0,
-                    max_batches_per_epoch_train=10000,
-                    max_batches_per_epoch_val=1000,
-                    data_loader_ctor=DataLoader,
-                    optimizer_ctor=None,
-                    lr_scheduler_ctor=None,
-                    shuffle_train=True,
-                    dataloader_workers_n=0):
+def train_eval_loop(
+    model,
+    train_dataset,
+    val_dataset,
+    criterion,
+    lr=1e-4,
+    epoch_n=10,
+    batch_size=32,
+    device=None,
+    early_stopping_patience=10,
+    l2_reg_alpha=0,
+    max_batches_per_epoch_train=10000,
+    max_batches_per_epoch_val=1000,
+    data_loader_ctor=DataLoader,
+    optimizer_ctor=None,
+    lr_scheduler_ctor=None,
+    shuffle_train=True,
+    dataloader_workers_n=0,
+):
     """
     Цикл для обучения модели. После каждой эпохи качество модели оценивается по отложенной выборке.
     :param model: torch.nn.Module - обучаемая модель
@@ -71,33 +80,41 @@ def train_eval_loop(model, train_dataset, val_dataset, criterion,
         - лучшая модель
     """
     if device is None:
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        device = "cuda" if torch.cuda.is_available() else "cpu"
     device = torch.device(device)
     model.to(device)
 
     if optimizer_ctor is None:
-        optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=l2_reg_alpha)
-    else:
-        optimizer = optimizer_ctor(model.parameters(), lr=lr)
+        optimizer_ctor = torch.optim.Adam
+
+    optimizer = optimizer_ctor(model.parameters(), lr=lr, weight_decay=l2_reg_alpha)
 
     if lr_scheduler_ctor is not None:
         lr_scheduler = lr_scheduler_ctor(optimizer)
     else:
         lr_scheduler = None
 
-    train_dataloader = data_loader_ctor(train_dataset, batch_size=batch_size, shuffle=shuffle_train,
-                                        num_workers=dataloader_workers_n)
-    val_dataloader = data_loader_ctor(val_dataset, batch_size=batch_size, shuffle=False,
-                                      num_workers=dataloader_workers_n)
+    train_dataloader = data_loader_ctor(
+        train_dataset,
+        batch_size=batch_size,
+        shuffle=shuffle_train,
+        num_workers=dataloader_workers_n,
+    )
+    val_dataloader = data_loader_ctor(
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=dataloader_workers_n,
+    )
 
-    best_val_loss = float('inf')
+    best_val_loss = float("inf")
     best_epoch_i = 0
     best_model = copy.deepcopy(model)
 
     for epoch_i in range(epoch_n):
         try:
             epoch_start = datetime.datetime.now()
-            print('Эпоха {}'.format(epoch_i))
+            print("Эпоха {}".format(epoch_i))
 
             model.train()
             mean_train_loss = 0
@@ -121,11 +138,13 @@ def train_eval_loop(model, train_dataset, val_dataset, criterion,
                 train_batches_n += 1
 
             mean_train_loss /= train_batches_n
-            print('Эпоха: {} итераций, {:0.2f} сек'.format(train_batches_n,
-                                                           (datetime.datetime.now() - epoch_start).total_seconds()))
-            print('Среднее значение функции потерь на обучении', mean_train_loss)
-
-
+            print(
+                "Эпоха: {} итераций, {:0.2f} сек".format(
+                    train_batches_n,
+                    (datetime.datetime.now() - epoch_start).total_seconds(),
+                )
+            )
+            print("Среднее значение функции потерь на обучении", mean_train_loss)
 
             model.eval()
             mean_val_loss = 0
@@ -146,16 +165,19 @@ def train_eval_loop(model, train_dataset, val_dataset, criterion,
                     val_batches_n += 1
 
             mean_val_loss /= val_batches_n
-            print('Среднее значение функции потерь на валидации', mean_val_loss)
+            print("Среднее значение функции потерь на валидации", mean_val_loss)
 
             if mean_val_loss < best_val_loss:
                 best_epoch_i = epoch_i
                 best_val_loss = mean_val_loss
                 best_model = copy.deepcopy(model)
-                print('Новая лучшая модель!')
+                print("Новая лучшая модель!")
             elif epoch_i - best_epoch_i > early_stopping_patience:
-                print('Модель не улучшилась за последние {} эпох, прекращаем обучение'.format(
-                    early_stopping_patience))
+                print(
+                    "Модель не улучшилась за последние {} эпох, прекращаем обучение".format(
+                        early_stopping_patience
+                    )
+                )
                 break
 
             if lr_scheduler is not None:
@@ -163,16 +185,18 @@ def train_eval_loop(model, train_dataset, val_dataset, criterion,
 
             print()
         except KeyboardInterrupt:
-            print('Досрочно остановлено пользователем')
+            print("Досрочно остановлено пользователем")
             break
         except Exception as ex:
-            print('Ошибка при обучении: {}\n{}'.format(ex, traceback.format_exc()))
+            print("Ошибка при обучении: {}\n{}".format(ex, traceback.format_exc()))
             break
 
     return best_val_loss, best_model
 
 
-def predict_with_model(model, dataset, device=None, batch_size=32, num_workers=0, return_labels=False):
+def predict_with_model(
+    model, dataset, device=None, batch_size=32, num_workers=0, return_labels=False
+):
     """
     :param model: torch.nn.Module - обученная модель
     :param dataset: torch.utils.data.Dataset - данные для применения модели
@@ -181,18 +205,21 @@ def predict_with_model(model, dataset, device=None, batch_size=32, num_workers=0
     :return: numpy.array размерности len(dataset) x *
     """
     if device is None:
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        device = "cuda" if torch.cuda.is_available() else "cpu"
     results_by_batch = []
 
     device = torch.device(device)
     model.to(device)
     model.eval()
 
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    dataloader = DataLoader(
+        dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers
+    )
     labels = []
     with torch.no_grad():
         import tqdm
-        for batch_x, batch_y in tqdm.tqdm(dataloader, total=len(dataset)/batch_size):
+
+        for batch_x, batch_y in tqdm.tqdm(dataloader, total=len(dataset) / batch_size):
             batch_x = copy_data_to_device(batch_x, device)
 
             if return_labels:
