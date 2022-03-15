@@ -88,3 +88,17 @@ def replace_number_nokens(tokenized_texts):
         [token if not NUMERIC_RE.match(token) else NUMERIC_TOKEN for token in text]
         for text in tokenized_texts
     ]
+
+
+def generate_tokens_n_grams(tokens, ngram_range):
+    assert len(ngram_range) == 2, "The ngram range must be a tuple of two elements"
+    range_start, range_end = ngram_range[0], ngram_range[1] + 1
+    result = []
+
+    for i in range(range_start, range_end):
+        result += [
+            " ".join(tokens_ngram.tolist())
+            for tokens_ngram in sliding_window_view(tokens, window_shape=i)
+        ]
+
+    return result
