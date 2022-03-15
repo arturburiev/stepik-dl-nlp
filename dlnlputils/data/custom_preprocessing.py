@@ -34,6 +34,7 @@ def stemming_preprocessing(
     for text in texts:
         word_tokens = nltk.tokenize.word_tokenize(text) if tokenize else text
         result.append([stem_func for w in word_tokens])
+
     return result
 
 
