@@ -19,7 +19,7 @@ def stopword_removing_preprocessing(texts, lang="english", tokenize=False):
 
 
 def stemming_preprocessing(
-    texts, lang="english", lemmatizing_mode=False, tokenize=False
+    texts, lemmatizing_mode=False, lang="english", tokenize=False
 ):
     result = []
     stem_func = None
@@ -40,7 +40,7 @@ def stemming_preprocessing(
 
 def lemmatizing_preprocessing(texts, lang="english", tokenize=False):
     return stemming_preprocessing(
-        texts, lang=lang, lemmatizing_mode=True, tokenize=tokenize
+        texts, lemmatizing_mode=True, lang=lang, tokenize=tokenize
     )
 
 
