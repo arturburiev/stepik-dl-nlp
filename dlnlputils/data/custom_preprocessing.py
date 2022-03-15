@@ -9,18 +9,28 @@ import spacy
 nltk.download("omw-1.4")
 
 
-def stopword_removing_preprocessing(texts, lang="english", tokenize=False):
+def lowercase_preprocessing(texts):
+    return [text.lower() for text in texts]
+
+
+def punctuation_removing_preprocessing(texts):
+    return [text.translate(str.maketrans("", "", string.punctuation)) for text in texts]
+
+
+def html_removing_preprocessing(texts):
+    regular_expr = r"<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});"
+    return [re.sub(regular_expr, "", text) for text in texts]
+
+
+def stopword_removing_preprocessing(tokenized_texts, lang="english"):
     result = []
     stop_words = set(nltk.corpus.stopwords.words(lang))
-    for text in texts:
-        word_tokens = nltk.tokenize.word_tokenize(text) if tokenize else text
-        result.append([w for w in word_tokens if w not in stop_words])
+    for tokenized_text in tokenized_texts:
+        result.append([w for w in tokenized_text if w not in stop_words])
     return result
 
 
-def stemming_preprocessing(
-    texts, lemmatizing_mode=False, lang="english", tokenize=False
-):
+def stemming_preprocessing(tokenized_texts, lemmatizing_mode=False, lang="english"):
     result = []
     stem_func = None
 
@@ -31,25 +41,21 @@ def stemming_preprocessing(
         stemmer = nltk.stem.PorterStemmer()
         stem_func = stemmer.stem
 
-    for text in texts:
-        word_tokens = nltk.tokenize.word_tokenize(text) if tokenize else text
-        result.append([stem_func for w in word_tokens])
+    for tokenized_text in tokenized_texts:
+        result.append([stem_func(w) for w in tokenized_text])
 
     return result
 
 
-def lemmatizing_preprocessing(texts, lang="english", tokenize=False):
-    return stemming_preprocessing(
-        texts, lemmatizing_mode=True, lang=lang, tokenize=tokenize
-    )
+def lemmatizing_preprocessing(tokenized_texts, lang="english"):
+    return stemming_preprocessing(tokenized_texts, lemmatizing_mode=True, lang=lang)
 
 
-def spellchecking_preprocessing(texts, lang="english", tokenize=False):
+def spellchecking_preprocessing(tokenized_texts, lang="english"):
     result = []
     spell = SpellChecker()
-    for text in texts:
-        word_tokens = nltk.tokenize.word_tokenize(text) if tokenize else text
-        result.append([spell.correction(w) for w in word_tokens])
+    for tokenized_text in tokenized_texts:
+        result.append([spell.correction(w) for w in tokenized_text])
     return result
 
 
