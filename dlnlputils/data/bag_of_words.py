@@ -39,7 +39,7 @@ def calc_pmi(doc_counter_matrix, labels):
     return result
 
 
-def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=False):
+def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=True):
     assert mode in {"tfidf", "idf", "tf", "bin", "pmi", "tfpmi"}
 
     result = doc_counter_matrix.copy()
