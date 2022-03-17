@@ -98,7 +98,9 @@ def generate_tokens_n_grams(tokens, ngram_range):
     for i in range(range_start, range_end):
         result += [
             " ".join(tokens_ngram.tolist())
-            for tokens_ngram in sliding_window_view(tokens, window_shape=i)
+            for tokens_ngram in np.lib.stride_tricks.sliding_window_view(
+                tokens, window_shape=i
+            )
         ]
 
     return result
