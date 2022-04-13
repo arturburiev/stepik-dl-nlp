@@ -39,7 +39,18 @@ def calc_pmi(doc_counter_matrix, labels):
     return result
 
 
-def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=True):
+def vectorize_texts(
+    doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", sublinear_tf=False, scale=True
+):
+    def calc_tf(matrix, sublinear_mode):
+        tf_matrix = matrix.tocsr()
+        tf_matrix = tf_matrix.multiply(1 / tf_matrix.sum(1))
+
+        if sublinear_mode:
+            tf_matrix.data = 1 + np.log(tf_matrix.data)
+
+        return tf_matrix
+
     assert mode in {"tfidf", "idf", "tf", "bin", "pmi", "tfpmi"}
 
     result = doc_counter_matrix.copy()
@@ -50,8 +61,7 @@ def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=
 
     # получаем вектора относительных частот слова в документе
     elif mode == "tf":
-        result = result.tocsr()
-        result = result.multiply(1 / result.sum(1))
+        result = calc_tf(result, sublinear_tf)
 
     # полностью убираем информацию о количестве употреблений слова в данном документе,
     # но оставляем информацию о частотности слова в корпусе в целом
@@ -61,18 +71,14 @@ def vectorize_texts(doc_counter_matrix, word2freq, pmi_vec, mode="tfidf", scale=
     # учитываем всю информацию, которая у нас есть:
     # частоту слова в документе и частоту слова в корпусе
     elif mode == "tfidf":
-        result = result.tocsr()
-        result = result.multiply(
-            1 / result.sum(1)
-        )  # разделить каждую строку на её длину
+        result = calc_tf(result, sublinear_tf)
         result = result.multiply(1 / word2freq)  # разделить каждый столбец на вес слова
 
     elif mode == "pmi":
         result = (result > 0).astype("float32").multiply(pmi_vec)
 
     elif mode == "tfpmi":
-        result = result.tocsr()
-        result = result.multiply(1 / result.sum(1))
+        result = calc_tf(result, sublinear_tf)
         result = result.multiply(pmi_vec)
 
     if scale:

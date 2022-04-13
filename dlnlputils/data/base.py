@@ -34,7 +34,13 @@ def texts_to_token_ids(tokenized_texts, word2id):
 
 
 def build_vocabulary(
-    tokenized_texts, max_size=1000000, max_doc_freq=0.8, min_count=5, pad_word=None
+    tokenized_texts,
+    max_size=1000000,
+    max_doc_freq=0.8,
+    min_count=5,
+    pad_word=None,
+    sublinear_df=False,
+    smooth_df=False,
 ):
     word_counts = collections.defaultdict(int)
     doc_n = 0
@@ -70,10 +76,23 @@ def build_vocabulary(
     # нумеруем слова
     word2id = {word: i for i, (word, _) in enumerate(sorted_word_counts)}
 
-    # нормируем частоты слов
-    word2freq = np.array(
-        [cnt / doc_n for _, cnt in sorted_word_counts], dtype="float32"
-    )
+    # нормируем частоты слов (получаем вектор DF)
+    word2freq = []
+
+    for _, cnt in sorted_word_counts:
+        cnt_cont = cnt
+        doc_n_cont = doc_n
+
+        if smooth_df:
+            cnt_cont += 1
+            doc_n_cont += 1
+
+        word2freq.append(cnt_cont / doc_n_cont)
+
+    word2freq = np.array(word2freq, dtype="float32")
+
+    if sublinear_df:
+        word2freq = np.log(word2freq) + 1
 
     return word2id, word2freq
 
