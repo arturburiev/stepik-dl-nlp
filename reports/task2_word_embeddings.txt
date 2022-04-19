@@ -583,7 +583,7 @@ POS-тэггинг.
 ###
 
 16) Эксперимент: использование токенизатора spacy.
-Лемматизация POS-тэггинг.
+Лемматизация и POS-тэггинг.
 
 Настройки: SPACY_TOKENIZER (Lemmatizing, POS-tagging), VOCAB_SIZE = 2774 , NEGATIVE_SAMPLES_N = 25, BATCH_SIZE = 32, LEARNING_RATE = 0.01, RADIUS = 3, EMBEDDING_SIZE = 100, EPOCH_N = 10
 
