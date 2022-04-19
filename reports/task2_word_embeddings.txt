@@ -8,7 +8,7 @@
 - среднее значение функции потерь на валидации 0.8773798287580551
 
 # embeddings.most_similar('chicken')
-# Out[110]:
+# Out:
 # [('chicken', 0.99993825),
 #  ('duck', 0.6317737),
 #  ('thighs', 0.6019647),
@@ -21,7 +21,7 @@
 #  ('apart', 0.51123625)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[111]:
+# Out:
 # [('emmenthal', 1.058097),
 #  ('cheeses', 1.0083457),
 #  ('cottage', 0.9961007),
@@ -43,7 +43,7 @@
 - среднее значение функции потерь на валидации 0.86721510328824
 
 # embeddings.most_similar('chicken')
-# Out[132]:
+# Out:
 # [('chicken', 0.99993926),
 #  ('turkey', 0.60417765),
 #  ('stock', 0.5805927),
@@ -56,7 +56,7 @@
 #  ('breasts', 0.49346253)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[133]:
+# Out:
 # [('cacao', 1.0839916),
 #  ('cheese', 0.9028638),
 #  ('goat', 0.7649341),
@@ -82,7 +82,7 @@
 - среднее значение функции потерь на валидации 0.8683050898855867
 
 # embeddings.most_similar('chicken')
-# Out[154]:
+# Out:
 # [('chicken', 0.9999358),
 #  ('turkey', 0.6009294),
 #  ('beef', 0.5491006),
@@ -95,7 +95,7 @@
 #  ('duck', 0.46470287)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[155]:
+# Out:
 # [('cacao', 1.0832565),
 #  ('cheese', 0.83762413),
 #  ('sandwich', 0.6945142),
@@ -121,7 +121,7 @@
 - среднее значение функции потерь на валидации 0.8707712382766087
 
 # embeddings.most_similar('chicken')
-# Out[176]:
+# Out:
 # [('chicken', 0.99993265),
 #  ('stock', 0.6177794),
 #  ('turkey', 0.5775455),
@@ -134,7 +134,7 @@
 #  ('lamb', 0.4670046)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[177]:
+# Out:
 # [('cacao', 1.0887142),
 #  ('cheese', 1.0573212),
 #  ('cheddar', 0.76874614),
@@ -160,7 +160,7 @@
 - среднее значение функции потерь на валидации 0.8665045019485469
 
 # embeddings.most_similar('chicken')
-# Out[198]:
+# Out:
 # [('chicken', 0.9999429),
 #  ('duck', 0.6132592),
 #  ('turkey', 0.5925722),
@@ -173,7 +173,7 @@
 #  ('breasts', 0.53393215)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[199]:
+# Out:
 # [('cacao', 1.0573564),
 #  ('cheese', 0.86120933),
 #  ('solids', 0.85443354),
@@ -199,7 +199,7 @@
 - среднее значение функции потерь на валидации 0.8665471084770702
 
 # embeddings.most_similar('chicken')
-# Out[220]:
+# Out:
 # [('chicken', 0.9999442),
 #  ('turkey', 0.6621525),
 #  ('beef', 0.58403903),
@@ -212,7 +212,7 @@
 #  ('wings', 0.5294162)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[221]:
+# Out:
 # [('cacao', 0.99293387),
 #  ('cheese', 0.9420042),
 #  ('comté', 0.7334508),
@@ -238,7 +238,7 @@
 - среднее значение функции потерь на валидации 0.8815140676257013
 
 # embeddings.most_similar('chicken')
-# Out[242]:
+# Out:
 # [('chicken', 0.9999144),
 #  ('canned', 0.94165695),
 #  ('homemade', 0.9412342),
@@ -251,7 +251,7 @@
 #  ('fish', 0.87810194)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[243]:
+# Out:
 # [('cheese', 0.99675965),
 #  ('parmigiano', 0.9832124),
 #  ('reggiano', 0.98291683),
@@ -277,7 +277,7 @@
 - среднее значение функции потерь на валидации 1.2939854024988757
 
 # embeddings.most_similar('chicken')
-# Out[264]:
+# Out:
 # [('chicken', 0.9998363),
 #  ('from', 0.56446975),
 #  ('cups', 0.47282356),
@@ -290,7 +290,7 @@
 #  ('trimmed', 0.40928113)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[265]:
+# Out:
 # [('cheese', 1.1192539),
 #  ('cacao', 0.9415681),
 #  ('shavings', 0.7742074),
@@ -316,7 +316,7 @@
 - среднее значение функции потерь на валидации 1.075365859742247
 
 # embeddings.most_similar('chicken')
-# Out[286]:
+# Out:
 # [('chicken', 0.99994314),
 #  ('beef', 0.61769545),
 #  ('thighs', 0.6101752),
@@ -329,7 +329,7 @@
 #  ('pheasant', 0.54196554)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[287]:
+# Out:
 # [('cacao', 0.99674773),
 #  ('cheese', 0.9041011),
 #  ('solids', 0.78035146),
@@ -355,7 +355,7 @@
 - среднее значение функции потерь на валидации 0.7584996795356096
 
 # embeddings.most_similar('chicken')
-# Out[308]:
+# Out:
 # [('chicken', 0.9999431),
 #  ('duck', 0.623288),
 #  ('squab', 0.59050083),
@@ -368,7 +368,7 @@
 #  ('breast', 0.519425)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[309]:
+# Out:
 # [('cacao', 1.0133879),
 #  ('cheese', 0.9089246),
 #  ('cotija', 0.76182395),
@@ -394,7 +394,7 @@
 - среднее значение функции потерь на валидации 0.7586503598291012
 
 # embeddings.most_similar('chicken')
-# Out[330]:
+# Out:
 # [('chicken', 0.9999464),
 #  ('turkey', 0.52912366),
 #  ('duck', 0.5241505),
@@ -407,7 +407,7 @@
 #  ('boneless', 0.4394171)]
 
 #  embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[331]:
+# Out:
 # [('cacao', 1.0138912),
 #  ('cheese', 0.88537705),
 #  ('percent', 0.6390385),
@@ -433,7 +433,7 @@
 - среднее значение функции потерь на валидации 0.6788869391529954
 
 # embeddings.most_similar('chicken')
-# Out[36]:
+# Out:
 # [('chicken', 0.9999457),
 #  ('turkey', 0.66110843),
 #  ('beef', 0.62912214),
@@ -446,7 +446,7 @@
 #  ('gizzards', 0.51673585)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[37]:
+# Out:
 # [('cacao', 1.1092119),
 #  ('cheese', 0.8843621),
 #  ('grana', 0.75664973),
@@ -472,7 +472,7 @@
 - среднее значение функции потерь на валидации 0.6670184437897746
 
 # embeddings.most_similar('chicken')
-# Out[29]:
+# Out:
 # [('chicken', 0.9999468),
 #  ('duck', 0.6510455),
 #  ('turkey', 0.6464188),
@@ -485,7 +485,7 @@
 #  ('rabbit', 0.521259)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[30]:
+# Out:
 # [('cacao', 0.9802453),
 #  ('cheese', 0.85011315),
 #  ('salata', 0.79259133),
@@ -512,7 +512,7 @@
 - среднее значение функции потерь на валидации 0.6684435049006455
 
 # embeddings.most_similar('chicken')
-# Out[55]:
+# Out:
 # [('chicken', 0.9999483),
 #  ('turkey', 0.6246453),
 #  ('duck', 0.6230294),
@@ -525,7 +525,7 @@
 #  ('duckling', 0.53052694)]
 
 # embeddings.analogy('cake', 'cacao', 'cheese')
-# Out[56]:
+# Out:
 # [('cacao', 1.1129448),
 #  ('cheese', 0.82626855),
 #  ('sheep', 0.78516567),
@@ -552,7 +552,7 @@ POS-тэггинг.
 Среднее значение функции потерь на валидации 0.66771803032152
 
 # embeddings.most_similar('chicken_NOUN')
-# Out[88]:
+# Out:
 # [('chicken_NOUN', 0.99994254),
 #  ('turkey_NOUN', 0.6950198),
 #  ('pheasant_NOUN', 0.61642224),
@@ -565,7 +565,7 @@ POS-тэггинг.
 #  ('wing_NOUN', 0.51798356)]
 
 # embeddings.analogy('cake_NOUN', 'cacao_NOUN', 'cheese_NOUN')
-# Out[89]:
+# Out:
 # [('cacao_NOUN', 0.99485296),
 #  ('cheese_NOUN', 0.9527608),
 #  ('Emmenthal_PROPN', 0.8301099),
@@ -583,16 +583,16 @@ POS-тэггинг.
 ###
 
 16) Эксперимент: использование токенизатора spacy.
-POS-тэггинг.
+Лемматизация POS-тэггинг.
 
-Настройки: SPACY_TOKENIZER (Lemmatizing, POS-tagging), VOCAB_SIZE = , NEGATIVE_SAMPLES_N = 25, BATCH_SIZE = 32, LEARNING_RATE = 0.01, RADIUS = 3, EMBEDDING_SIZE = 100, EPOCH_N = 10
+Настройки: SPACY_TOKENIZER (Lemmatizing, POS-tagging), VOCAB_SIZE = 2774 , NEGATIVE_SAMPLES_N = 25, BATCH_SIZE = 32, LEARNING_RATE = 0.01, RADIUS = 3, EMBEDDING_SIZE = 100, EPOCH_N = 10
 
 Итоги:
 - среднее значение функции потерь на обучении 0.6641513660870333
 - среднее значение функции потерь на валидации 0.6678653430058319
 
 # embeddings.most_similar('chicken_NOUN')
-# Out[173]:
+# Out:
 # [('chicken_NOUN', 0.9999471),
 #  ('stock_NOUN', 0.5937826),
 #  ('turkey_NOUN', 0.56244886),
@@ -605,7 +605,7 @@ POS-тэггинг.
 #  ('breast_NOUN', 0.5007763)]
 
 # embeddings.analogy('cake_NOUN', 'cacao_NOUN', 'cheese_NOUN')
-# Out[174]:
+# Out:
 # [('cacao_NOUN', 1.0826366),
 #  ('cheese_NOUN', 0.96782404),
 #  ('70_NUM', 0.73867005),
@@ -619,5 +619,26 @@ POS-тэггинг.
 
 Выводы:
 Значение функции потерь довольно низкое.
+
+###
+
+17) Эксперимент: обучение fasttext из gensim.
+Лемматизация, fasttext из gensim.
+
+Настройки: SPACY_TOKENIZER (Lemmatizing), gensim.models.FastText
+
+Итоги:
+# fasttext.wv.most_similar('chicken_NOUNT')
+# Out:
+# [('chicken', 0.9287378787994385),
+#  ('chick', 0.7206724882125854),
+#  ('duck', 0.6634989976882935),
+#  ('thigh', 0.6427212357521057),
+#  ('turkey', 0.6352545022964478),
+#  ('rabbit', 0.6288781762123108),
+#  ('stock', 0.6000908017158508),
+#  ('pheasant', 0.5917993783950806),
+#  ('drumstick', 0.5890626907348633),
+#  ('broth', 0.5815339684486389)]
 
 ###
