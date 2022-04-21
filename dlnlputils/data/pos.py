@@ -13,8 +13,8 @@ def pos_corpus_to_tensor(sentences, char2id, label2id, max_sent_len, max_token_l
 
     for sent_i, sent in enumerate(sentences):
         for token_i, token in enumerate(sent):
-            if token.form is None or token.upos is None:
-                continue
+            # if token.form is None or token.upos is None:
+            #     continue
             targets[sent_i, token_i] = label2id.get(token.upos, 0)
             for char_i, char in enumerate(token.form):
                 inputs[sent_i, token_i, char_i + 1] = char2id.get(char, 0)
