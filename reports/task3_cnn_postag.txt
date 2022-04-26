@@ -5,7 +5,7 @@
 Итоговый отчет после экспериментов и доработок:
 
 1) Эксперимент: пайплайн с первоначальными настройками.
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 84370
 
 Итоги:
@@ -40,7 +40,7 @@
 ###
 
 2) Эксперимент: увеличение размера эмбеддинга (с 64 до 128).
-Настройки: EPOCH_N = 10, EMB_SIZE = 128, LAYERS_N = 3, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 128, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 316178
 
 Итоги:
@@ -75,7 +75,7 @@
 ###
 
 3) Эксперимент: размера эмбеддинга взят равным 128 и увеличена сила dropout с 0.3 до 0.5.
-Настройки: EPOCH_N = 10, EMB_SIZE = 128, LAYERS_N = 3, KERNEL_SIZE = 3, DROPOUT = 0.5, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 128, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.5, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 316178
 
 Итоги:
@@ -110,7 +110,7 @@
 ###
 
 4) Эксперимент: увеличение количества слоев для StackedConv1d с 3 до 10.
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 10, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 10, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 257298
 
 Итоги:
@@ -145,7 +145,7 @@
 ###
 
 5) Эксперимент: увеличение количества слоев для StackedConv1d с 3 до 6 и увеличение силы dropout с 0.3 до 0.4.
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 6, KERNEL_SIZE = 3, DROPOUT = 0.4, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 6, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.4, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 158482
 
 Итоги:
@@ -180,7 +180,7 @@
 ###
 
 6) Эксперимент: увеличение размера ядра свертки с 3 до 5.
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNEL_SIZE = 5, DROPOUT = 0.3, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 5, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 133522
 
 Итоги:
@@ -215,7 +215,7 @@
 ###
 
 7) Эксперимент: увеличение количества эпох с 10 до 100.
-Настройки: EPOCH_N = 100, EMB_SIZE = 64, LAYERS_N = 3, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = False
+Настройки: EPOCH_N = 100, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
 Количество параметров: 84370
 
 Итоги:
@@ -250,7 +250,7 @@
 ###
 
 8) Эксперимент: убрал dropout и добавил пакетную нормализацию (перед функцией активации).
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = True
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = True
 Количество параметров: 85138
 
 Итоги:
@@ -268,7 +268,7 @@
 ###
 
 9) Эксперимент: убрал dropout и добавил пакетную нормализацию (после функции активации), увеличил количество слоев с 3 до 7.
-Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 7, KERNEL_SIZE = 3, DROPOUT = 0.3, BATCH_NORMALIZATION = True
+Настройки: EPOCH_N = 10, EMB_SIZE = 64, LAYERS_N = 7, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = True
 Количество параметров: 184722
 
 Итоги:
@@ -302,7 +302,133 @@
 
 ###
 
-10) Эксперимент: добавление dilation (dilation=2 для всех сверточных слоев).
+10) Эксперимент: увеличение числа эпох с 10 до 20, добавление dilated-сверток.
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = [1, 2, 3], DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
+Количество параметров: 84370
+
+Итоги:
+- среднее значение функции потерь на обучении: 0.007392780389636755
+- macro avg f1 на обучении: 0.93
+- среднее значение функции потерь на валидации: 0.012131263501942158
+- macro avg f1 на валидации: 0.91
+- примерное время на одну эпоху (в секундах): 13
+
+Результаты применения теггеров:
+# мама-NOUN мыла-VERB раму-ADV
+
+# косил-VERB косой-ADJ косой-ADJ косой-NOUN
+
+# глокая-ADJ куздра-NOUN штеко-NOUN будланула-VERB бокра-NOUN и-CCONJ куздрячит-VERB бокрёнка-NOUN
+
+# сяпала-VERB калуша-NOUN с-ADP калушатами-NOUN по-ADP напушке-NOUN
+
+# пирожки-NOUN поставлены-VERB в-ADP печь-NOUN мама-NOUN любит-VERB печь-NOUN
+
+# ведро-NOUN дало-VERB течь-VERB вода-NOUN стала-VERB течь-ADV
+
+# три-NUM да-CCONJ три-NUM будет-VERB дырка-NOUN
+
+# три-NUM да-CCONJ три-NUM будет-AUX шесть-NUM
+
+# сорок-NOUN сорок-NOUN
+
+Выводы:
+Качество модели стало выше, как на обучении, так и на валидации, но модель немного переобучается.
+
+###
+
+11) Эксперимент: увеличение числа эпох с 10 до 20, dilated-свертки, увеличение размера ядра для последних слоев.
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = [3, 4, 5], DILATIONS = [1, 2, 3], DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
+Количество параметров: 108946
+
+Итоги:
+- среднее значение функции потерь на обучении: 0.00734193529933691
+- macro avg f1 на обучении: 0.93
+- среднее значение функции потерь на валидации: 0.012154691852629185
+- macro avg f1 на валидации: 0.91
+- примерное время на одну эпоху (в секундах): 15
+
+Результаты применения теггеров:
+# мама-NOUN мыла-NOUN раму-NOUN
+
+# косил-VERB косой-NOUN косой-NOUN косой-NOUN
+
+# глокая-ADJ куздра-NOUN штеко-NOUN будланула-VERB бокра-NOUN и-CCONJ куздрячит-VERB бокрёнка-NOUN
+
+# сяпала-VERB калуша-NOUN с-ADP калушатами-NOUN по-ADP напушке-NOUN
+
+# пирожки-NOUN поставлены-VERB в-ADP печь-VERB мама-NOUN любит-VERB печь-NOUN
+
+# ведро-NOUN дало-VERB течь-VERB вода-NOUN стала-VERB течь-VERB
+
+# три-NUM да-CCONJ три-NUM будет-AUX дырка-NOUN
+
+# три-NUM да-CCONJ три-NUM будет-AUX шесть-NUM
+
+# сорок-NOUN сорок-NOUN
+
+Выводы:
+Качество модели стало выше, как на обучении, так и на валидации, но модель немного переобучается.
+
+###
+
+12) Эксперимент: увеличение числа эпох с 10 до 20, добавление dilated-сверток, увеличение силы dropout с 0.3 до 0.5.
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = [1, 2, 3], DROPOUT = 0.5, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
+Количество параметров: 84370
+
+Итоги:
+- среднее значение функции потерь на обучении: 0.01348417904227972
+- macro avg f1 на обучении: 0.91
+- среднее значение функции потерь на валидации: 0.017405228689312935
+- macro avg f1 на валидации: 0.90
+- примерное время на одну эпоху (в секундах): 13
+
+Результаты применения теггеров:
+# мама-NOUN мыла-NOUN раму-NOUN
+
+# косил-VERB косой-ADJ косой-NOUN косой-NOUN
+
+# глокая-ADJ куздра-NOUN штеко-NOUN будланула-NOUN бокра-NOUN и-CCONJ куздрячит-VERB бокрёнка-NOUN
+
+# сяпала-VERB калуша-NOUN с-ADP калушатами-NOUN по-ADP напушке-NOUN
+
+# пирожки-NOUN поставлены-VERB в-ADP печь-NOUN мама-NOUN любит-VERB печь-NOUN
+
+# ведро-ADV дало-NOUN течь-NOUN вода-NOUN стала-VERB течь-NOUN
+
+# три-NUM да-CCONJ три-NUM будет-AUX дырка-NOUN
+
+# три-NUM да-CCONJ три-NUM будет-AUX шесть-NUM
+
+# сорок-NOUN сорок-NOUN
+
+Выводы:
+Качество модели на валидации немного выше, но на качество на обучении немного снизилось.
+
+###
+
+13) Эксперимент: взвешивание классов с nn.CrossEntropyLoss(weight=class_weights,reduction='mean').cuda().
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = nn.CrossEntropyLoss(weight=class_weights,reduction='mean').cuda()
+Количество параметров: 84370
+
+
+Итоги:
+- среднее значение функции потерь на обучении: 0.019179165363311768
+- macro avg f1 на обучении: 0.86
+- среднее значение функции потерь на валидации: 0.022933149710297585
+- macro avg f1 на валидации: 0.83
+- примерное время на одну эпоху (в секундах): 15
+
+Результаты применения теггеров:
+
+Выводы:
+
+###
+
+14) Эксперимент: взвешивание классов с nn.CrossEntropyLoss(weight=class_weights,reduction='sum').cuda().
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = nn.CrossEntropyLoss(weight=class_weights,reduction='sum').cuda()
+Количество параметров: 84370
+
 
 Итоги:
 - среднее значение функции потерь на обучении: 
