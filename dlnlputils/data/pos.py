@@ -51,6 +51,8 @@ class POSTagger:
         self.id2label = id2label
         self.max_sent_len = max_sent_len
         self.max_token_len = max_token_len
+        self.start_word_id = start_word_id
+        self.end_word_id = end_word_id
 
     def __call__(self, sentences):
         tokenized_corpus = tokenize_corpus(sentences, min_token_size=1)
@@ -63,12 +65,12 @@ class POSTagger:
         for sent_i, sentence in enumerate(tokenized_corpus):
             for token_i, token in enumerate(sentence):
 
-                inputs[sent_i, token_i, 0] = start_word_id
+                inputs[sent_i, token_i, 0] = self.start_word_id
 
                 for char_i, char in enumerate(token):
                     inputs[sent_i, token_i, char_i + 1] = self.char2id.get(char, 0)
 
-                inputs[sent_i, token_i, len(token) + 1] = end_word_id
+                inputs[sent_i, token_i, len(token) + 1] = self.end_word_id
 
         dataset = TensorDataset(inputs, torch.zeros(len(sentences)))
         predicted_probs = predict_with_model(

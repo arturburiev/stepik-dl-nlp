@@ -425,20 +425,73 @@
 
 ###
 
-14) Эксперимент: взвешивание классов с nn.CrossEntropyLoss(weight=class_weights,reduction='sum').cuda().
-Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = nn.CrossEntropyLoss(weight=class_weights,reduction='sum').cuda()
-Количество параметров: 84370
-
+14) Эксперимент: обучение для позиций начала и конца токена отдельного эмбеддинга (start_word_id != 0, end_word_id != 0, start_word_id = end_word_id).
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
+Количество параметров: 84434
 
 Итоги:
-- среднее значение функции потерь на обучении: 
-- macro avg f1 на обучении: 
-- среднее значение функции потерь на валидации: 
-- macro avg f1 на валидации: 
-- примерное время на одну эпоху (в секундах): 
+- среднее значение функции потерь на обучении: 0.006903050933033228
+- macro avg f1 на обучении: 0.94
+- среднее значение функции потерь на валидации: 0.011758623644709587
+- macro avg f1 на валидации: 0.91
+- примерное время на одну эпоху (в секундах): 14
 
 Результаты применения теггеров:
+# мама-NOUN мыла-NOUN раму-NOUN
+
+# косил-VERB косой-NOUN косой-NOUN косой-NOUN
+
+# глокая-ADJ куздра-NOUN штеко-ADJ будланула-VERB бокра-NOUN и-CCONJ куздрячит-VERB бокрёнка-NOUN
+
+# сяпала-VERB калуша-NOUN с-ADP калушатами-NOUN по-ADP напушке-NOUN
+
+# пирожки-NOUN поставлены-VERB в-ADP печь-NOUN мама-NOUN любит-VERB печь-VERB
+
+# ведро-ADV дало-VERB течь-NOUN вода-NOUN стала-VERB течь-NOUN
+
+# три-NUM да-PART три-NUM будет-AUX дырка-NOUN
+
+# три-NUM да-PART три-NUM будет-AUX шесть-NUM
+
+# сорок-NOUN сорок-NOUN
 
 Выводы:
+Качество на валидации и обучении выросло, но модель немного переобучается.
+
+###
+
+15) Эксперимент: обучение для позиций начала и конца токена отдельных эмбеддингов (start_word_id != 0, end_word_id != 0, start_word_id != end_word_id).
+Настройки: EPOCH_N = 20, EMB_SIZE = 64, LAYERS_N = 3, KERNELS = 3, DILATIONS = 1, DROPOUT = 0.3, BATCH_NORMALIZATION = False, CRITERION = F.cross_entropy
+Количество параметров: 84434
+
+Итоги:
+- среднее значение функции потерь на обучении: 0.007565854582935572
+- macro avg f1 на обучении: 0.93
+- среднее значение функции потерь на валидации: 0.012332375161349773
+- macro avg f1 на валидации: 0.91
+- примерное время на одну эпоху (в секундах): 14
+
+Результаты применения теггеров:
+# мама-NOUN мыла-VERB раму-NOUN
+
+# косил-VERB косой-NOUN косой-NOUN косой-NOUN
+
+# глокая-ADJ куздра-NOUN штеко-ADV будланула-VERB бокра-NOUN и-CCONJ куздрячит-VERB бокрёнка-NOUN
+
+# сяпала-VERB калуша-NOUN с-ADP калушатами-NOUN по-ADP напушке-NOUN
+
+# пирожки-NOUN поставлены-VERB в-ADP печь-NOUN мама-NOUN любит-VERB печь-VERB
+
+# ведро-ADV дало-VERB течь-NOUN вода-NOUN стала-VERB течь-NOUN
+
+# три-NUM да-PART три-NUM будет-AUX дырка-NOUN
+
+# три-NUM да-PART три-NUM будет-AUX шесть-VERB
+
+# сорок-NOUN сорок-NOUN
+
+
+Выводы:
+Качество на валидации и обучении выросло, но модель немного переобучается.
 
 ###
