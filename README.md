@@ -42,9 +42,9 @@
 
 Чтобы запустить ноутбук с семинара на своем ноутбуке:
 
-1) Cклонируйте репозиторий курса:
+1) Cклонируйте репозиторий:
 
-`git clone https://github.com/Samsung-IT-Academy/stepik-dl-nlp.git`
+`git clone https://github.com/arturburiev/stepik-dl-nlp.git`
 
 2) В терминале выполните команду:
 
@@ -64,7 +64,7 @@
 3) Чтобы выкачать на colab библиотеку dlnlputils, не забудьте выполнить команду в первой ячейке:
 
 ```
-!git clone https://github.com/Samsung-IT-Academy/stepik-dl-nlp.git && pip install -r stepik-dl-nlp/requirements.txt
+!git clone https://github.com/arturburiev/stepik-dl-nlp.git && pip install -r stepik-dl-nlp/requirements.txt
 import sys; sys.path.append('./stepik-dl-nlp')
 ```
 
