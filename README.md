@@ -68,7 +68,7 @@
 import sys; sys.path.append('./stepik-dl-nlp')
 ```
 
-4) Не забудьте настроить `device='cpu'` или `device='cuda'`, а также выбрать подходящий Runtime в Google Colab (CPU/TPU/GPU).
+4) Не забудьте настроить `device='cpu'` или `device='cuda'`, а также выбрать подходящий Runtime в Colab (CPU/TPU/GPU).
 
 А также следуйте комментариям касательно путей внутри ноутбуков.
 
